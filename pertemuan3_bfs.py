@@ -5,11 +5,11 @@ def bfs(graf, mulai):
     # Buat antrian untuk BFS
     antrian = deque()
     
-    # Inisialisasi semua node sebagai belum dikunjungi
-    dikunjungi = [False] * len(graf)
+    # Inisialisasi set untuk melacak node yang sudah dikunjungi
+    dikunjungi = set()
     
     # Tandai node awal sebagai dikunjungi dan masukkan ke antrian
-    dikunjungi[mulai] = True
+    dikunjungi.add(mulai)
     antrian.append(mulai)
     
     print("Hasil BFS:", end=" ")
@@ -24,8 +24,8 @@ def bfs(graf, mulai):
         for tetangga in graf[node]:
             # Jika tetangga belum dikunjungi, tandai sebagai dikunjungi
             # dan masukkan ke antrian
-            if not dikunjungi[tetangga]:
-                dikunjungi[tetangga] = True
+            if tetangga not in dikunjungi:
+                dikunjungi.add(tetangga)
                 antrian.append(tetangga)
 
 # Fungsi untuk menambahkan edge ke graf
@@ -35,18 +35,15 @@ def tambah_edge(graf, awal, tujuan):
 
 # Program utama
 if __name__ == "__main__":
-    # Jumlah vertex dalam graf
-    jumlah_vertex = 5
-    
-    # Representasi graf menggunakan list of lists
-    graf = [[] for _ in range(jumlah_vertex)]
-    
-    # Tambahkan edge ke graf
-    tambah_edge(graf, 0, 1)
-    tambah_edge(graf, 0, 2)
-    tambah_edge(graf, 1, 3)
-    tambah_edge(graf, 1, 4)
-    tambah_edge(graf, 2, 4)
+    # Buat graf dalam bentuk dictionary
+    graf = {
+        0: [1, 2],
+        1: [0, 3, 4],
+        2: [0, 5],
+        3: [1],
+        4: [1, 5],
+        5: [2, 4]
+    }
     
     # Lakukan traversal BFS mulai dari vertex 0
     print("BFS dimulai dari vertex 0:")
