@@ -1,5 +1,3 @@
-# Implementasi DFS (Depth-First Search) sederhana
-
 # Fungsi untuk menambahkan edge ke dalam graf
 def tambah_edge(graf, awal, tujuan):
     graf[awal].append(tujuan)
